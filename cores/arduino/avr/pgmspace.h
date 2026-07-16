@@ -3,6 +3,14 @@
 
 #include <inttypes.h>
 
+#ifdef __cplusplus
+// Define __FlashStringHelper for ARM targets (no-op, strings in RAM)
+class __FlashStringHelper {
+public:
+    virtual ~__FlashStringHelper() {}
+};
+#endif
+
 #define PROGMEM
 #define PGM_P  const char *
 #define PSTR(str) (str)

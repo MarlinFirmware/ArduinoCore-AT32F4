@@ -71,6 +71,16 @@ TwoWire::~TwoWire()
 bool TwoWire::begin(uint8_t self_addr)
 {
     WireBase::begin(self_addr);
+
+    if (this->sda_pin == PB4 || this->scl_pin == PA8) {
+        
+        crm_periph_clock_enable(CRM_IOMUX_PERIPH_CLOCK, TRUE);
+        
+        // JTAG close, SWD active
+        gpio_pin_remap_config(SWJTAG_MUX_010, TRUE);
+        gpio_pin_remap_config(I2C3_MUX, TRUE);
+    }
+    
     pinMode(this->scl_pin, OUTPUT_OPEN_DRAIN);
     pinMode(this->sda_pin, OUTPUT_OPEN_DRAIN);
 

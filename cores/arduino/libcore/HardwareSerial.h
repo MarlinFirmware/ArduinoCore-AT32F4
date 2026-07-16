@@ -53,6 +53,7 @@ public:
   void write(uint8_t c);
   void write(const uint8_t *buf, uint16_t len);
   void print(const char *s);
+  void println(const char *s);
   void onTxComplete(void);
   
   
@@ -77,4 +78,5 @@ extern HardwareSerial Serial3;
 extern HardwareSerial Serial4;
 extern HardwareSerial Serial5;
 extern HardwareSerial Serial7;
+extern HardwareSerial& Serial;   // primary UART (aliased to Serial1 in HardwareSerial.cpp)
 #endif

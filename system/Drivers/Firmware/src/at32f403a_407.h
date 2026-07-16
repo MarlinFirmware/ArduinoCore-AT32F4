@@ -67,7 +67,7 @@ extern "C" {
     defined (AT32F403ARGT7) || defined (AT32F403ACGU7) || defined (AT32F403AVET7) || \
     defined (AT32F403ACET7) || defined (AT32F403ARET7) || defined (AT32F403ACEU7)
 
-    //#define AT32F403Axx
+    #define AT32F403Axx
 #endif
 
 #if defined (AT32F407RGT7)  || defined (AT32F407VGT7)  || defined (AT32F407RCT7)  || \

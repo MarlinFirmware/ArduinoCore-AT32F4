@@ -76,7 +76,7 @@ void Core_Init(void)
   system_clock_config();
   SysTick_Config(system_core_clock / 1000);
 
-
+#ifdef AT32_USB_CDC
   /* usart gpio config */
   usart_gpio_config();
 
@@ -99,15 +99,18 @@ void Core_Init(void)
   /* enable usb pull-up */
   usbd_connect(&usb_core_dev);
 //    GPIO_JTAG_Disable();
+#endif
     Delay_Init();
     ADCx_Init(ADC1);
 }
 
 
+#ifdef AT32_USB_CDC
 void usb_cdc_send(const uint8_t *buf, uint16_t len)
 {
   usb_vcp_send_data(&usb_core_dev, (uint8_t *)buf, len);
 }
+#endif
 
 
 /* -------------------------------------------------- */
@@ -142,6 +145,7 @@ void usart_gpio_config(void)
 }
 
 
+#ifdef AT32_USB_CDC
 /**
   * @brief  this function handles usb interrupt.
   * @param  none
@@ -151,6 +155,7 @@ void USBFS_L_CAN1_RX0_IRQHandler(void)
 {
   usbd_irq_handler(&usb_core_dev);
 }
+#endif
 
 /**
   * @brief  usb delay millisecond function.

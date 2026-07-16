@@ -41,7 +41,9 @@ public:
     // Stream özelliklerini de ekleyebilirsin ama şimdilik Print yeter
 };
 
+#ifdef AT32_USB_CDC
 extern VcpSerial Serial;
+#endif
 #ifdef __cplusplus
 }
 #endif

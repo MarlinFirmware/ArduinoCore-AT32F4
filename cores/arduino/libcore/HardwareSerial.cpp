@@ -24,12 +24,12 @@ PA0: UART4_TX
 PA1: UART4_RX
 
 UART5 (Remap)
-PB8 UART5_RX
-PB9 UART5_TX
+PB8 UART5_RX  DMA1_CHANNEL5
+PB9 UART5_TX  DMA1_CHANNEL7
 
 UART7 (Remap)
-PB3  UART7_RX
-PB4  UART7_TX
+PB3  UART7_RX  DMA1_CHANNEL7
+PB4  UART7_TX  DMA1_CHANNEL6
 
 */
 
@@ -48,6 +48,11 @@ HardwareSerial Serial3(USART3, rx_buffer3, 512);
 HardwareSerial Serial4(UART4,  rx_buffer4, 512);
 HardwareSerial Serial5(UART5,  rx_buffer5, 512);
 HardwareSerial Serial7(UART7,  rx_buffer6, 512);
+
+// Marlin and some framework sources (DShot, GPS) reference the bare `Serial`
+// global. Alias it to the primary UART (Serial1) rather than instantiate a
+// second HardwareSerial on the same peripheral.
+HardwareSerial& Serial = Serial1;
 
 typedef struct
 {
@@ -307,9 +312,21 @@ void HardwareSerial::write(const uint8_t *data, uint16_t len)
   dma_channel_enable(_dma_tx, TRUE);
 }
 
+void HardwareSerial::write(uint8_t c)
+{
+  write(&c, 1);
+}
+
 void HardwareSerial::print(const char *s)
 {
   write((uint8_t*)s, strlen(s));
+}
+
+void HardwareSerial::println(const char *s)
+{
+  write((uint8_t*)s, strlen(s));
+  write((uint8_t)0x0D);
+  write((uint8_t)0x0A);
 }
 
 void HardwareSerial::onTxComplete(void)

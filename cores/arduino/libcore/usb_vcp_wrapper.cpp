@@ -13,6 +13,7 @@
 #include "usb_vcp_wrapper.h"
 #include "libcore/config/mcu_config.h"
 
+#ifdef AT32_USB_CDC
 // Global nesne
 //VcpSerial SerialVCP;
 VcpSerial Serial;
@@ -76,6 +77,7 @@ void VcpSerial::flush() {
   uint8_t dummy[64];
   while (usb_vcp_get_rxdata(&usb_core_dev, dummy) > 0) {}
 }
+#endif
 
 
 
