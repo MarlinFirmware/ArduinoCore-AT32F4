@@ -1,6 +1,6 @@
 {
   "name": "ArduinoCore-AT32F4",
-  "version": "1.0.0.1",
+  "version": "1.0.0.2",
   "description": "Arduino Wiring-based Framework for the AT32F4 MCU series",
   "keywords": [
     "framework",
@@ -9,6 +9,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Marlinfirmware/ArduinoCore-AT32F4"
+    "url": "https://github.com/MarlinFirmware/ArduinoCore-AT32F4"
   }
 }
